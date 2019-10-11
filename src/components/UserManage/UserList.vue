@@ -244,10 +244,15 @@
     }
 </script>
 
-<style>
+<style lang="less">
     #UserList{
         width: 100%;
         height: 100%;
+
+
+        .el-input, .el-input--suffix, .el-input__inner, .el-select{
+             width:150px !important;
+         }
     }
 
     .user-list-breadcrumb{
@@ -285,7 +290,5 @@
     }
 
 
-    .el-input, .el-input--suffix, .el-input__inner, .el-select{
-        width:150px !important;
-    }
+
 </style>

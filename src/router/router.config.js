@@ -11,6 +11,7 @@ import PassageManage from "../components/OperateManage/PassageManage";
 import AdminManage from "../components/AdminManage/AdminManage";
 import RootManage from "../components/AdminManage/RootManage";
 import OrderManage from "../components/OrderManage/OrderManage";
+import NewPassage from "../components/OperateManage/NewPassage";
 
 
 export default {
@@ -63,6 +64,10 @@ export default {
         {
             path:'/OrderManage',
             component:OrderManage
+        },
+        {
+            path:'/NewPassage',
+            component: NewPassage
         }
     ]
 

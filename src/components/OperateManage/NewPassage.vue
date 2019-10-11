@@ -1,7 +1,5 @@
 <template>
-    <div id="PassageManage">
-
-
+    <div id="NewPassage">
         <div class="user-list-breadcrumb">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/UserFeedback' }">用户管理</el-breadcrumb-item>
@@ -9,42 +7,40 @@
             </el-breadcrumb>
         </div>
         <el-card class="user-list-table-content" >
-            <div class="use-editor" >
-                <div class="search-conditions-panel">
-                    <div style="margin-left: 4%">
-                        <el-input placeholder="快速搜索文章">
-                            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                        </el-input>
+            <div class="the-editor" style="overflow-y: scroll">
+                <div class="editor-title" style="width: 100%;height:24px;line-height: 24px;">
+                    <div style="float: left">
+                        <span style="font-size: 18px;">编辑文章</span>
+                    </div>
+                    <div style="float: right;margin-right: 30px;">
+                        <el-button type="primary" @click="getContent">提交</el-button>
+                        <el-button type="danger" >返回</el-button>
                     </div>
                 </div>
-                <div class="table-panel">
-                    <el-table :data="tableData">
-                        <el-table-column
-                                type="selection"
-                                width="55">
-                        </el-table-column>
-                        <el-table-column
-                                prop="name"
-                                label="文章名称"
-                                width="330">
-                        </el-table-column>
-                        <el-table-column
-                                label="操作"
-                                width="180">
-                            <template slot-scope="scope">
-                                <el-button type="text" size="small" @click="modifyMajor(scope.$index)">编辑</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </div>
-                <div class="bottom-panel">
-                    <div style="float:left;margin-right: 5%;">
-                        <el-button type="primary" size="small">新增</el-button>
-                        <el-button type="danger" size="small">删除</el-button>
-                    </div>
-                </div>
-            </div>
 
+                <div class="the-editor-divider"></div>
+                <div class="the-editor-title-panel">
+                    <span>编辑标题：</span>
+
+                    <el-input v-model="modifyForm.majorName" size="small" style="width:100%"></el-input>
+                </div>
+                <div class="the-editor-title-panel">
+                    <el-row style="width:100%;height: 40px;">
+                        <el-col style="width: 15%;line-height: 40px;text-align: left">
+                            <span>编辑内容：</span>
+                        </el-col>
+                        <el-col style="width:85%;text-align: left;line-height: 40px;">
+
+                        </el-col>
+                    </el-row>
+                </div>
+                <div class="the-editor-title-panel">
+                    <div id="editor-wang" style="width: 100%;height: 100px;">
+                    </div>
+                </div>
+                <div style="width: 100%;height: 130px;"></div>
+
+            </div>
 
 
         </el-card>
@@ -57,7 +53,7 @@
     // import E from 'wangeditor';
 
     export default {
-        name: "PassageManage",
+        name: "NewPanage",
         data(){
             return{
                 tableData:[{
@@ -71,6 +67,7 @@
                     majorName:''
                 },
                 useEditor: true,
+                editor:''
             }
         },
         mounted(){
@@ -79,6 +76,7 @@
             var E = require('wangeditor');
             var editor = new E('#editor-wang');
             editor.create();
+            this.$data.editor = editor;
             this.$nextTick(function () {
 
 
@@ -95,19 +93,21 @@
                 this.$data.modifyForm.modifyIndex = index;
                 this.$data.useEditor=true;
                 this.$data.dialogVisible=true;
-                this.$data.modifyForm.majorName = this.$data.tableData[index].name;
-                this.$router.push('/NewPassage');
+                this.$data.modifyForm.majorName = this.$data.tableData[index].name
             },
             confirmMajor(){
                 this.$data.tableData[this.$data.modifyForm.modifyIndex].name = this.$data.modifyForm.majorName;
                 this.$data.dialogVisible=false;
+            },
+            getContent(){
+                console.log(this.$data.editor.txt.html());
             }
         }
     }
 </script>
 
 <style lang="less">
-    #PassageManage {
+    #NewPassage {
         width: 100%;
         height: 100%;
 
